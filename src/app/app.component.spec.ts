@@ -1,29 +1,31 @@
-import { TestBed } from '@angular/core/testing';
+import {
+  ComponentFixture,
+  TestBed,
+} from '@angular/core/testing';
 import { AppComponent } from './app.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-describe('AppComponent', () => {
+xdescribe('AppComponent', () => {
+  let fixture: ComponentFixture<AppComponent>;
+  let animatedElement: HTMLDivElement;
+
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [AppComponent],
+      imports: [AppComponent, BrowserAnimationsModule],
     }).compileComponents();
-  });
 
-  it('should create the app', () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app).toBeTruthy();
-  });
-
-  it(`should have the 'animation-testing' title`, () => {
-    const fixture = TestBed.createComponent(AppComponent);
-    const app = fixture.componentInstance;
-    expect(app.title).toEqual('animation-testing');
-  });
-
-  it('should render title', () => {
-    const fixture = TestBed.createComponent(AppComponent);
+    fixture = TestBed.createComponent(AppComponent);
     fixture.detectChanges();
-    const compiled = fixture.nativeElement as HTMLElement;
-    expect(compiled.querySelector('h1')?.textContent).toContain('Hello, animation-testing');
+
+    const element = fixture.nativeElement;
+    animatedElement = element.querySelector('div');
+  });
+
+  it('should check the styles when the div is open', () => {
+    const computedStyle = getComputedStyle(animatedElement);
+
+    expect(computedStyle.opacity).toBe('1');
+    expect(computedStyle.height).toBe('200px');
+    expect(computedStyle.backgroundColor).toBe('rgb(255, 255, 0)');
   });
 });

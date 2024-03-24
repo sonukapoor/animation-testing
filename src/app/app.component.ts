@@ -1,13 +1,16 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
-
+import { openCloseAnimation } from './animations/open-close.animation';
 @Component({
   selector: 'app-root',
   standalone: true,
-  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrl: './app.component.scss'
+  styleUrl: './app.component.scss',
+  animations: [openCloseAnimation],
 })
 export class AppComponent {
-  title = 'animation-testing';
+  isOpen = true;
+
+  toggle() {
+    this.isOpen = !this.isOpen;
+  }
 }
